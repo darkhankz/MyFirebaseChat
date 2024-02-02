@@ -42,4 +42,14 @@ class SignUpRepositoryImpl : SignUpRepository {
 
         return resultLiveData
     }
+
+    override fun loginUser(email: String, password: String): LiveData<Boolean> {
+        val resultLiveData = MutableLiveData<Boolean>()
+
+        auth.signInWithEmailAndPassword(email, password)
+            .addOnCompleteListener { task ->
+                resultLiveData.value = task.isSuccessful
+            }
+        return resultLiveData
+    }
 }
