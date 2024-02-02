@@ -64,7 +64,7 @@ class SignUpActivity : AppCompatActivity() {
         mSignUpViewModel.registrationResult.observe(this) { isSuccess ->
             if (isSuccess) {
                 // Регистрация успешна, открываем HomeActivity
-                val intent = Intent(this@SignUpActivity, HomeActivity::class.java)
+                val intent = Intent(this@SignUpActivity, LoginActivity::class.java)
                 startActivity(intent)
                 finish()
             } else {
