@@ -24,7 +24,7 @@ class LoginActivity : AppCompatActivity() {
             navigateToUsersActivity()
         }
         loginButtonClick()
-        observeLoginResult()
+        observerLoginResult()
         navigateToSignUp()
     }
 
@@ -48,7 +48,7 @@ class LoginActivity : AppCompatActivity() {
         }
     }
 
-    private fun observeLoginResult() {
+    private fun observerLoginResult() {
         mSignUpViewModel.loginResult.observe(this) { isSuccess ->
             if (isSuccess) {
                 clearFields()
