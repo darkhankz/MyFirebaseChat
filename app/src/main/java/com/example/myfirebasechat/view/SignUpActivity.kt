@@ -16,7 +16,8 @@ class SignUpActivity : AppCompatActivity() {
         mBinding = ActivitySignUpBinding.inflate(layoutInflater)
         val view = mBinding.root
         setContentView(view)
-        observeRegistrationResult()
+
+        observerRegistrationResult()
         signUpButtonClick()
     }
 
@@ -60,15 +61,15 @@ class SignUpActivity : AppCompatActivity() {
 
         }
     }
-    private fun observeRegistrationResult() {
+
+    private fun observerRegistrationResult() {
         mSignUpViewModel.registrationResult.observe(this) { isSuccess ->
             if (isSuccess) {
-                // Регистрация успешна, открываем HomeActivity
                 val intent = Intent(this@SignUpActivity, UsersActivity::class.java)
                 startActivity(intent)
                 finish()
             } else {
-                Toast.makeText(this@SignUpActivity, "Регистрация не удалась", Toast.LENGTH_SHORT)
+                Toast.makeText(this@SignUpActivity, "Registration failed", Toast.LENGTH_SHORT)
                     .show()
 
             }

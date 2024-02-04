@@ -18,20 +18,26 @@ class UsersActivity : AppCompatActivity() {
         mBinding = ActivityUsersBinding.inflate(layoutInflater)
         val view = mBinding.root
         setContentView(view)
-        mBinding.userRecyclerView.layoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, false)
+
+        setupUserRecyclerView()
+        initObservers()
+        mUsersViewModel.fetchUsersList()
+    }
+
+    private fun setupUserRecyclerView() {
+        mBinding.userRecyclerView.layoutManager =
+            LinearLayoutManager(this, RecyclerView.VERTICAL, false)
+    }
+
+    private fun initObservers() {
         mUsersViewModel.userList.observe(this) { userList ->
-            // Обновить пользовательский интерфейс с использованием списка пользователей
             val userAdapter = UserAdapter(this@UsersActivity, userList)
             mBinding.userRecyclerView.adapter = userAdapter
         }
 
         mUsersViewModel.error.observe(this) { errorMessage ->
-            // Обработать ошибку (показать Toast с сообщением об ошибке)
             Toast.makeText(applicationContext, errorMessage, Toast.LENGTH_SHORT).show()
         }
-
-        mUsersViewModel.fetchUsersList()
     }
-
 
 }

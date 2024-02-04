@@ -30,7 +30,6 @@ class SignUpRepositoryImpl : SignUpRepository {
 
                     val userObject = User(userId, userName, "")
 
-                    // Пример: добавление пользователя в базу данных
                     databaseReference.setValue(userObject)
                         .addOnCompleteListener { databaseTask ->
                             resultLiveData.value = databaseTask.isSuccessful

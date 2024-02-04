@@ -9,8 +9,11 @@ import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 
-class UsersRepositoryImpl: UsersRepository {
-    override fun getUsersList(callback: (ArrayList<User>) -> Unit, errorCallback: (String) -> Unit) {
+class UsersRepositoryImpl : UsersRepository {
+    override fun getUsersList(
+        callback: (ArrayList<User>) -> Unit,
+        errorCallback: (String) -> Unit
+    ) {
         val firebaseUser: FirebaseUser? = FirebaseAuth.getInstance().currentUser
 
         if (firebaseUser != null) {
@@ -39,4 +42,6 @@ class UsersRepositoryImpl: UsersRepository {
         } else {
             errorCallback("User not authenticated")
         }
-    }}
+    }
+}
+
