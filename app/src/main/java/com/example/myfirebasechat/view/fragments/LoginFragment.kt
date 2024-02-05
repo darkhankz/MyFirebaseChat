@@ -1,4 +1,4 @@
-package com.example.myfirebasechat
+package com.example.myfirebasechat.view.fragments
 
 import android.os.Bundle
 import android.text.TextUtils
@@ -8,9 +8,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.navigation.fragment.findNavController
+import com.example.myfirebasechat.R
 import com.example.myfirebasechat.databinding.FragmentLoginBinding
 import com.example.myfirebasechat.viewmodel.SignUpViewModel
-import com.google.firebase.auth.FirebaseUser
 
 
 class LoginFragment : Fragment() {

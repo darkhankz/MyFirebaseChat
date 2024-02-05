@@ -1,4 +1,4 @@
-package com.example.myfirebasechat
+package com.example.myfirebasechat.view.fragments
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
