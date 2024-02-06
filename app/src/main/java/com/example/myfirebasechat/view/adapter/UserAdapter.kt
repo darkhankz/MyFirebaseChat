@@ -1,23 +1,23 @@
 package com.example.myfirebasechat.view.adapter
 
 import android.content.Context
-import android.content.Intent
+import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.myfirebasechat.R
 import com.example.myfirebasechat.data.User
-import com.example.myfirebasechat.view.ChatActivity
+import com.example.myfirebasechat.view.fragments.ChatFragment
 import de.hdodenhof.circleimageview.CircleImageView
 
 
 class UserAdapter(private val context: Context, private val userList: ArrayList<User>) :
     RecyclerView.Adapter<UserAdapter.ViewHolder>() {
-
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_user, parent, false)
@@ -35,10 +35,19 @@ class UserAdapter(private val context: Context, private val userList: ArrayList<
             .into(holder.imgUser)
 
         holder.layoutUser.setOnClickListener {
-            val intent = Intent(context, ChatActivity::class.java)
-            intent.putExtra("userId", user.userId)
-            intent.putExtra("userName", user.userName)
-            context.startActivity(intent)
+            val bundle = Bundle()
+            bundle.putString("userId", user.userId)
+            bundle.putString("userName", user.userName)
+            val fragment = ChatFragment()
+            fragment.arguments = bundle
+
+            val fragmentManager = (context as AppCompatActivity).supportFragmentManager
+            val fragmentTransaction = fragmentManager.beginTransaction()
+
+            fragmentTransaction.replace(R.id.nav_host_fragment, fragment)
+            fragmentTransaction.addToBackStack(null)
+            fragmentTransaction.commit()
+
         }
     }
 
@@ -49,7 +58,6 @@ class UserAdapter(private val context: Context, private val userList: ArrayList<
         val imgUser: CircleImageView = view.findViewById(R.id.userImage)
         val layoutUser: LinearLayout = view.findViewById(R.id.layoutUser)
     }
-
 
 }
 
