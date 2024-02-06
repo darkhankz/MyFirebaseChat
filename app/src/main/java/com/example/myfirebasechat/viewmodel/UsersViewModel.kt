@@ -7,7 +7,7 @@ import com.example.myfirebasechat.model.repository.UsersRepository
 import com.example.myfirebasechat.model.repository.UsersRepositoryImpl
 
 class UsersViewModel {
-    private val mUsersRepository : UsersRepository = UsersRepositoryImpl()
+    private val mUsersRepository: UsersRepository = UsersRepositoryImpl()
 
     private val _userList = MutableLiveData<ArrayList<User>>()
     val userList: LiveData<ArrayList<User>>

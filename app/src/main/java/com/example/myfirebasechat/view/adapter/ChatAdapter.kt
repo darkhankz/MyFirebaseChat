@@ -16,7 +16,7 @@ class ChatAdapter(private val context: Context, private val chatList: ArrayList<
     RecyclerView.Adapter<ChatAdapter.ViewHolder>() {
 
 
-   private var firebaseUser: FirebaseUser? = null
+    private var firebaseUser: FirebaseUser? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return if (viewType == MESSAGE_TYPE_RIGHT) {
