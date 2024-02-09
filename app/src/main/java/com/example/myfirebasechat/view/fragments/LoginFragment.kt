@@ -7,19 +7,20 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.example.myfirebasechat.R
 import com.example.myfirebasechat.databinding.FragmentLoginBinding
 import com.example.myfirebasechat.viewmodel.SignUpViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
-
+@AndroidEntryPoint
 class LoginFragment : Fragment() {
 
     private var _binding: FragmentLoginBinding? = null
     private val mBinding get() = _binding!!
 
-    private val mSignUpViewModel: SignUpViewModel = SignUpViewModel()
-
+    private val mSignUpViewModel: SignUpViewModel by viewModels()
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?

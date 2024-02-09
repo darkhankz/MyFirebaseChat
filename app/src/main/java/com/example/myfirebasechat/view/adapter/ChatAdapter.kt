@@ -1,6 +1,7 @@
 package com.example.myfirebasechat.view.adapter
 
 import android.content.Context
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -37,6 +38,7 @@ class ChatAdapter(private val context: Context, private val chatList: ArrayList<
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val chat = chatList[position]
+        Log.d("ChatAdapter", "Message: ${chat.message}")
         holder.txtUserName.text = chat.message
         //Glide.with(context).load(user.profileImage).placeholder(R.drawable.profile_image).into(holder.imgUser)
 

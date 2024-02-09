@@ -2,11 +2,14 @@ package com.example.myfirebasechat.viewmodel
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 import com.example.myfirebasechat.model.repository.SignUpRepository
-import com.example.myfirebasechat.model.repository.SignUpRepositoryImpl
+import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 
-class SignUpViewModel {
-    private val mSignUpRepository: SignUpRepository = SignUpRepositoryImpl()
+@HiltViewModel
+class SignUpViewModel @Inject constructor(private val mSignUpRepository: SignUpRepository) :
+    ViewModel() {
 
     private val _registrationResult = MutableLiveData<Boolean>()
     val registrationResult: LiveData<Boolean>
