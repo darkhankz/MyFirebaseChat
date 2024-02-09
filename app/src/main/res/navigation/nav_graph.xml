@@ -37,6 +37,7 @@
         <action
             android:id="@+id/action_usersFragment_to_chatFragment"
             app:destination="@id/chatFragment" />
+
     </fragment>
     <fragment
         android:id="@+id/chatFragment"

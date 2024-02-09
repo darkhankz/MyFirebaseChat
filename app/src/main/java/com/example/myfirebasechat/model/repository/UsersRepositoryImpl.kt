@@ -6,19 +6,21 @@ import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
-import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
+import javax.inject.Inject
 
-class UsersRepositoryImpl : UsersRepository {
+class UsersRepositoryImpl @Inject constructor(
+    private val databaseReference: DatabaseReference,
+    private val auth: FirebaseAuth
+) : UsersRepository {
     override fun getUsersList(
         callback: (ArrayList<User>) -> Unit,
         errorCallback: (String) -> Unit
     ) {
-        val firebaseUser: FirebaseUser? = FirebaseAuth.getInstance().currentUser
+        val firebaseUser: FirebaseUser? = auth.currentUser
 
         if (firebaseUser != null) {
-            val databaseReference: DatabaseReference =
-                FirebaseDatabase.getInstance().getReference("Users")
+            val databaseReference: DatabaseReference = databaseReference
 
             databaseReference.addValueEventListener(object : ValueEventListener {
                 override fun onCancelled(error: DatabaseError) {

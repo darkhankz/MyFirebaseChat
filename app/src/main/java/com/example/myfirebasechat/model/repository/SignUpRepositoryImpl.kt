@@ -6,11 +6,12 @@ import com.example.myfirebasechat.data.User
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.DatabaseReference
-import com.google.firebase.database.FirebaseDatabase
+import javax.inject.Inject
 
-class SignUpRepositoryImpl : SignUpRepository {
-    private var auth: FirebaseAuth = FirebaseAuth.getInstance()
-    private lateinit var databaseReference: DatabaseReference
+class SignUpRepositoryImpl @Inject constructor(
+    private val databaseReference: DatabaseReference,
+    private val auth: FirebaseAuth
+) : SignUpRepository {
 
     override fun registerUser(
         userName: String,
@@ -25,12 +26,9 @@ class SignUpRepositoryImpl : SignUpRepository {
                     val user: FirebaseUser? = auth.currentUser
                     val userId: String = user!!.uid
 
-                    databaseReference =
-                        FirebaseDatabase.getInstance().getReference("Users").child(userId)
-
                     val userObject = User(userId, userName, "")
 
-                    databaseReference.setValue(userObject)
+                    databaseReference.child(userId).setValue(userObject)
                         .addOnCompleteListener { databaseTask ->
                             resultLiveData.value = databaseTask.isSuccessful
                         }

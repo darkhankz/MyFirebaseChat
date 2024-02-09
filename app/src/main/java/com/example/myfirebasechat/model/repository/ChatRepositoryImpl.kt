@@ -1,5 +1,6 @@
 package com.example.myfirebasechat.model.repository
 
+import android.util.Log
 import com.example.myfirebasechat.data.Chat
 import com.example.myfirebasechat.data.User
 import com.google.firebase.database.DataSnapshot
@@ -7,11 +8,10 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
+import javax.inject.Inject
 
-class ChatRepositoryImpl : ChatRepository {
-    private val databaseReference: DatabaseReference =
-        FirebaseDatabase.getInstance().getReference("Users")
-
+class ChatRepositoryImpl @Inject constructor(private val databaseReference: DatabaseReference) :
+    ChatRepository {
 
     override fun getUserData(
         userId: String,
@@ -39,7 +39,6 @@ class ChatRepositoryImpl : ChatRepository {
     ) {
         val databaseReference: DatabaseReference =
             FirebaseDatabase.getInstance().getReference("Chat")
-
         databaseReference.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 val chatList = mutableListOf<Chat>()
@@ -54,10 +53,12 @@ class ChatRepositoryImpl : ChatRepository {
                         }
                     }
                 }
+                Log.d("ChatRepository", "Loaded ${chatList.size} chat messages")
                 callback(chatList)
             }
 
             override fun onCancelled(error: DatabaseError) {
+                Log.e("ChatRepository", "Error reading chat messages: ${error.message}")
                 errorCallback(error.message)
             }
         })

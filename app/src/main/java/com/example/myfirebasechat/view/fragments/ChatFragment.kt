@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -20,15 +21,15 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
+import dagger.hilt.android.AndroidEntryPoint
 
-
+@AndroidEntryPoint
 class ChatFragment : Fragment() {
 
     private var _binding: FragmentChatBinding? = null
     private val mBinding get() = _binding!!
 
-    private val mChatViewModel: ChatViewModel = ChatViewModel()
-
+    private val mChatViewModel: ChatViewModel by viewModels()
 
     private var firebaseUser: FirebaseUser? = null
     private var reference: DatabaseReference? = null
@@ -80,16 +81,16 @@ class ChatFragment : Fragment() {
         }
 
         mChatViewModel.chatList.observe(viewLifecycleOwner) { chatList ->
-            val chatAdapter = context?.let { ChatAdapter(it, chatList) }
+            val chatAdapter = ChatAdapter(requireContext(), chatList)
             mBinding.chatRecyclerView.adapter = chatAdapter
         }
 
         mChatViewModel.user.observe(viewLifecycleOwner) { user ->
-            mBinding.tvUserName.text = user.userName
-            if (user.profileImage == "") {
+            mBinding.tvUserName.text = user?.userName
+            if (user?.profileImage == "") {
                 mBinding.imgProfile.setImageResource(R.drawable.profile_image)
             } else {
-                context?.let { Glide.with(it).load(user.profileImage).into(mBinding.imgProfile) }
+                context?.let { Glide.with(it).load(user?.profileImage).into(mBinding.imgProfile) }
             }
         }
     }
